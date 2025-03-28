@@ -40,7 +40,7 @@ with DAG(
     catchup=True,
     schedule_interval="@monthly",
     max_active_runs=1,
-    tags=['dtc-de'],
+    tags=['dtc-de', 'ingestion'],
 ) as dag:
 
     download_punctuality_dataset_task = BashOperator(
