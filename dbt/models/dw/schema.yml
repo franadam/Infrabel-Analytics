@@ -1,0 +1,427 @@
+
+version: 2
+
+models:
+  - name: dim_geography
+    description: ""
+    columns:
+      - name: geo_id
+        data_type: string
+        description: ""
+        constraints:
+          - type: primary_key
+          - type: not_null
+          - type: unique
+
+      - name: city
+        data_type: string
+        description: ""
+
+      - name: latitude
+        data_type: double
+        description: ""
+
+      - name: longitude
+        data_type: double
+        description: ""
+
+      - name: region
+        data_type: string
+        description: ""
+
+      - name: city_type
+        data_type: varchar(29)
+        description: ""
+
+      - name: population
+        data_type: int
+        description: ""
+
+  - name: dim_station
+    description: "The station dimension table"
+
+    columns:
+      - name: pk_dim_station
+        data_type: string
+        description: ""
+        constraints:
+          - type: primary_key
+          - type: not_null
+          - type: unique
+        tests:
+          - unique:
+              severity: error
+          - not_null:
+              severity: error
+
+      - name: name
+        data_type: string
+        description: "The name of station"
+        constraints:
+          - type: not_null
+
+
+      - name: measuring_point
+        data_type: int
+        description: "The measuring point number"
+
+  - name: dim_train
+    description: "The train dimension table"
+    columns:
+      - name: pk_dim_train
+        data_type: string
+        description: ""
+        constraints:
+          - type: primary_key
+          - type: not_null
+          - type: unique
+        tests:
+          - unique:
+              severity: error
+          - not_null:
+              severity: error
+
+      - name: train_no
+        data_type: int
+        description: "The train number"
+
+      - name: relation
+        data_type: string
+        description: "The train type and number"
+
+      - name: train_type
+        data_type: string
+        description: "The train type"
+
+      - name: operator
+        data_type: string
+        description: "The train operator"
+
+      - name: direction
+        data_type: string
+        description: "The journey direction"
+
+  - name: dim_date
+    description: ""
+    columns:
+      - name: datekey
+        data_type: int
+        description: ""
+        constraints:
+          - type: primary_key
+          - type: not_null
+          - type: unique
+
+      - name: date
+        data_type: date
+        description: ""
+      - name: day
+        data_type: bigint
+        description: ""
+      - name: daysuffix
+        data_type: varchar(2)
+        description: ""
+      - name: weekday
+        data_type: bigint
+        description: ""
+      - name: weekdayname
+        data_type: string
+        description: ""
+      - name: weekdayname_short
+        data_type: string
+        description: ""
+      - name: weekdayname_firstletter
+        data_type: string
+        description: ""
+      - name: dowinmonth
+        data_type: bigint
+        description: ""
+      - name: dayofyear
+        data_type: bigint
+        description: ""
+      - name: weekofmonth
+        data_type: int
+        description: ""
+      - name: weekofyear
+        data_type: bigint
+        description: ""
+      - name: month
+        data_type: bigint
+        description: ""
+      - name: monthname
+        data_type: string
+        description: ""
+      - name: monthname_short
+        data_type: string
+        description: ""
+      - name: monthname_firstletter
+        data_type: string
+        description: ""
+      - name: quarter
+        data_type: int
+        description: ""
+      - name: quartername
+        data_type: varchar(6)
+        description: ""
+      - name: year
+        data_type: bigint
+        description: ""
+      - name: mmyyyy
+        data_type: string
+        description: ""
+      - name: quarteryear
+        data_type: string
+        description: ""
+      - name: monthyear
+        data_type: string
+        description: ""
+      - name: isweekend
+        data_type: boolean
+        description: ""
+      - name: isholiday
+        data_type: boolean
+        description: ""
+  
+  - name: dim_time
+    description: ""
+    columns:
+      - name: timekey
+        data_type: bigint
+        description: ""
+        constraints:
+          - type: primary_key
+          - type: not_null
+          - type: unique
+
+      - name: hour24
+        data_type: bigint
+        description: ""
+      - name: hour24shortstring
+        data_type: string
+        description: ""
+      - name: hour24minstring
+        data_type: string
+        description: ""
+      - name: hour24fullstring
+        data_type: string
+        description: ""
+      - name: hour12
+        data_type: bigint
+        description: ""
+      - name: hour12shortstring
+        data_type: string
+        description: ""
+      - name: hour12minstring
+        data_type: string
+        description: ""
+      - name: hour12fullstring
+        data_type: string
+        description: ""
+      - name: ampmcode
+        data_type: bigint
+        description: ""
+      - name: ampmstring
+        data_type: varchar(2)
+        description: ""
+      - name: minute
+        data_type: bigint
+        description: ""
+      - name: minutecode
+        data_type: bigint
+        description: ""
+      - name: minuteshortstring
+        data_type: string
+        description: ""
+      - name: minutefullstring24
+        data_type: string
+        description: ""
+      - name: minutefullstring12
+        data_type: string
+        description: ""
+      - name: halfhour
+        data_type: bigint
+        description: ""
+      - name: halfhourcode
+        data_type: bigint
+        description: ""
+      - name: halfhourshortstring
+        data_type: string
+        description: ""
+      - name: halfhourfullstring24
+        data_type: string
+        description: ""
+      - name: halfhourfullstring12
+        data_type: string
+        description: ""
+      - name: second
+        data_type: bigint
+        description: ""
+      - name: secondshortstring
+        data_type: string
+        description: ""
+      - name: fulltimestring24
+        data_type: string
+        description: ""
+      - name: fulltimestring12
+        data_type: string
+        description: ""
+      - name: fulltime
+        data_type: string
+        description: ""
+  
+  
+  - name: fact_train
+    description: "The train events table"
+    columns:
+      - name: pk_fact_train
+        data_type: binary
+        description: ""
+        constraints:
+          - type: primary_key
+          - type: not_null
+          - type: unique
+        tests:
+          - unique:
+              severity: warn
+          - not_null:
+              severity: error
+
+      - name: fk_dim_train
+        data_type: int
+        description: "The train number"
+        constraints:
+          - type: not_null
+          - type: foreign_key
+            to: ref('dim_train') 
+            to_columns: [pk_dim_train]
+        tests:
+          - not_null:
+              severity: error
+
+      - name: fk_dim_station
+        data_type: string
+        description: "The arrival station key"
+        constraints:
+          - type: not_null
+          - type: foreign_key
+            to: ref('dim_station') 
+            to_columns: [pk_dim_station]
+        tests:
+          - not_null:
+              severity: error
+
+      - name: fk_dim_date_dep
+        data_type: int
+        description: "The departure date key"
+        constraints:
+          - type: not_null
+          - type: foreign_key
+            to: ref('dim_date') 
+            to_columns: [DateKey]
+        tests:
+          - not_null:
+              severity: error
+
+      - name: fk_dim_date_planned_arr
+        data_type: int
+        description: "The estimated date of arrival key"
+        constraints:
+          - type: not_null
+          - type: foreign_key
+            to: ref('dim_date') 
+            to_columns: [DateKey]
+        tests:
+          - not_null:
+              severity: error
+
+      - name: fk_dim_date_planned_dep
+        data_type: int
+        description: "The scheduled departure date key"
+        constraints:
+          - type: not_null
+          - type: foreign_key
+            to: ref('dim_date') 
+            to_columns: [DateKey]
+        tests:
+          - not_null:
+              severity: error
+
+      - name: fk_dim_date_real_arr
+        data_type: int
+        description: "The actual arrival date key"
+        constraints:
+          - type: not_null
+          - type: foreign_key
+            to: ref('dim_date') 
+            to_columns: [DateKey]
+        tests:
+          - not_null:
+              severity: error
+
+      - name: fk_dim_date_real_dep
+        data_type: int
+        description: "The actual departure date key"
+        constraints:
+          - type: not_null
+          - type: foreign_key
+            to: ref('dim_date') 
+            to_columns: [DateKey]
+        tests:
+          - not_null:
+              severity: error
+
+      - name: fk_dim_tim_planned_time_arr
+        data_type: int
+        description: "The scheduled time of arrival key"
+        constraints:
+          - type: not_null
+          - type: foreign_key
+            to: ref('dim_time') 
+            to_columns: [TimeKey]
+        tests:
+          - not_null:
+              severity: error
+
+      - name: fk_dim_tim_planned_time_dep
+        data_type: int
+        description: "The scheduled time of departure key"
+        constraints:
+          - type: not_null
+          - type: foreign_key
+            to: ref('dim_time') 
+            to_columns: [TimeKey]
+        tests:
+          - not_null:
+              severity: error
+
+      - name: fk_dim_tim_real_time_arr
+        data_type: int
+        description: "The actual arrival time key"
+        constraints:
+          - type: not_null
+          - type: foreign_key
+            to: ref('dim_time') 
+            to_columns: [TimeKey]
+        tests:
+          - not_null:
+              severity: error
+
+      - name: fk_dim_tim_real_time_dep
+        data_type: int
+        description: "The actual departure time key"
+        constraints:
+          - type: not_null
+          - type: foreign_key
+            to: ref('dim_time') 
+            to_columns: [TimeKey]
+        tests:
+          - not_null:
+              severity: error
+
+      - name: delay_arr
+        data_type: int
+        description: ""
+
+      - name: delay_dep
+        data_type: int
+        description: ""
