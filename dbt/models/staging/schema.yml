@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: staging
+    database: AwsDataCatalog 
+    schema: infrabel_staging_db
+
+    tables:
+      - name: punctuality_iceberg
+      - name: geography_ext
