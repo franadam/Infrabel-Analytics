@@ -1,6 +1,6 @@
 {{ 
     config(
-        materialized='table'
+        materialized='table'        
 
         ) 
 }}
@@ -35,8 +35,8 @@ with
     TRAIN_SERV,
     ptcar_lg_nm_nl
   FROM {{ ref('stg_staging__punctuality_iceberg') }} S
-  left join {{ ref('dim_station') }} A on (A.measuring_point = ptcar_no and A.name = lower(trim(ptcar_lg_nm_nl)))
-  left join {{ ref('dim_train') }} T on (T.train_no = S.train_no)
+  left join {{ ref('dim_station') }} A on A.name = trim(ptcar_lg_nm_nl)
+  left join {{ ref('dim_train') }} T on T.train_no = S.train_no
 )
 SELECT  
     {{ dbt_utils.generate_surrogate_key(

@@ -7,4 +7,5 @@ sources:
 
     tables:
       - name: punctuality_iceberg
-      - name: geography_ext
+      - name: station_ext
+      - name: stop_ext
