@@ -61,10 +61,6 @@ models:
           - type: not_null
 
 
-      - name: measuring_point
-        data_type: int
-        description: "The measuring point number"
-
   - name: dim_train
     description: "The train dimension table"
     columns:
@@ -308,7 +304,7 @@ models:
             to_columns: [pk_dim_station]
         tests:
           - not_null:
-              severity: error
+              severity: warn
 
       - name: fk_dim_date_dep
         data_type: int

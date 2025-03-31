@@ -1,7 +1,13 @@
 {{ config(materialized='table') }}
 
 SELECT DISTINCT 
-    {{ dbt_utils.generate_surrogate_key(['ptcar_lg_nm_nl', 'PTCAR_NO']) }} as pk_dim_station
-    , lower(trim(ptcar_lg_nm_nl)) as name
-    , PTCAR_NO AS measuring_point
-FROM {{ref('stg_staging__punctuality_iceberg')}}
+    {{ dbt_utils.generate_surrogate_key(['name', 'longitude', 'latitude']) }} as pk_dim_station
+    , upper(trim(name)) as name
+    , longitude
+    , latitude
+    , country_code
+    , country as country_name
+    , "telegraph-code" as telegraph_code
+    , "taf-tap-code" as taf_tap_code
+FROM {{ref('stg_staging__station_ext')}}
+where latitude is not null and longitude is not null 
