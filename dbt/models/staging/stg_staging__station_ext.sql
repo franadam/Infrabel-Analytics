@@ -1,6 +1,4 @@
-with 
-
-source as (
+with source as (
 
     select * from {{ source('staging', 'station_ext') }}
 
@@ -25,7 +23,7 @@ renamed as (
         official_transfer_time
 
     from source
-    where uri not like ''
+    where "country-code" not like ''  and latitude not like '' 
 )
 
 select * from renamed

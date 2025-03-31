@@ -292,7 +292,7 @@ models:
             to_columns: [pk_dim_train]
         tests:
           - not_null:
-              severity: warn
+              severity: error
 
       - name: fk_dim_station
         data_type: string

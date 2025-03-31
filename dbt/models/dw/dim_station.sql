@@ -10,3 +10,4 @@ SELECT DISTINCT
     , "telegraph-code" as telegraph_code
     , "taf-tap-code" as taf_tap_code
 FROM {{ref('stg_staging__station_ext')}}
+where latitude is not null and longitude is not null 

@@ -1,8 +1,12 @@
 {{ 
     config(
-        materialized='table'        
-
-        ) 
+        materialized='table',
+        partition_by={
+          "field": "FK_Dim_Date_dep",
+          "data_type": "int",
+          "granularity": "day"
+        }
+    ) 
 }}
 
 with
