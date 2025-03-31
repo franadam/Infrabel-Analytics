@@ -14,10 +14,10 @@ renamed as (
         longitude,
         latitude,
         name,
-        alternative-fr,
-        alternative-nl,
-        alternative-de,
-        alternative-en,
+        "alternative-fr",
+        "alternative-nl",
+        "alternative-de",
+        "alternative-en",
         platform
 
     from source
